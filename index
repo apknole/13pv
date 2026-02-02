@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Audit - Chapter 13 Due Diligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-primary: #2F3E46;
+            --slate-light: #354F52;
+            --green-action: #84A98C;
+            --green-light: #CAD2C5;
+            --green-soft: #F1F5F0;
+            --text-primary: #1A1F23;
+            --text-secondary: #52606D;
+            --white: #FFFFFF;
+            --accent-verified: #52B788;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lexend', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--white);
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(47, 62, 70, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--slate-primary);
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--slate-primary);
+        }
+        
+        .nav-cta {
+            background: var(--green-action);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-cta:hover {
+            background: var(--slate-primary);
+            transform: translateY(-1px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(165deg, var(--slate-primary) 0%, var(--slate-light) 100%);
+            padding: 10rem 2rem 8rem;
+            margin-top: 72px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(132, 169, 140, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+        
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 720px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: var(--green-light);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background: var(--green-action);
+            color: var(--white);
+            padding: 1.1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(132, 169, 140, 0.3);
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+        
+        .hero-cta:hover {
+            background: var(--accent-verified);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(132, 169, 140, 0.4);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--green-soft);
+        }
+        
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--slate-primary);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--green-action), var(--accent-verified));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-card:hover {
+            border-color: var(--green-light);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(47, 62, 70, 0.12);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--green-action), var(--accent-verified));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--slate-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .verified-badge {
+            display: inline-block;
+            background: rgba(82, 183, 136, 0.1);
+            color: var(--accent-verified);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Visual Concept Section */
+        .visual-concept {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+        
+        .visual-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .color-swatch {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .color-swatch:hover {
+            transform: translateY(-4px);
+        }
+        
+        .color-display {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .color-info {
+            background: var(--white);
+            padding: 1.5rem;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: var(--slate-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .color-usage {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: var(--slate-primary);
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 45%, rgba(132, 169, 140, 0.05) 50%, transparent 55%),
+                linear-gradient(-45deg, transparent 45%, rgba(132, 169, 140, 0.05) 50%, transparent 55%);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+        
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--green-action);
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--green-light);
+            font-weight: 300;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--green-soft) 0%, var(--white) 100%);
+        }
+        
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 3rem;
+            color: var(--slate-primary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .cta-section p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+        
+        .cta-button-large {
+            display: inline-block;
+            background: var(--slate-primary);
+            color: var(--white);
+            padding: 1.3rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 30px rgba(47, 62, 70, 0.2);
+        }
+        
+        .cta-button-large:hover {
+            background: var(--green-action);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 40px rgba(47, 62, 70, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--slate-primary);
+            color: var(--green-light);
+            padding: 3rem 2rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--green-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--green-action);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Portfolio Audit</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Don't Bid Blind. Know the Cash Flow.</h1>
+                <p class="hero-subtitle">Deep-dive due diligence for Chapter 13 portfolios. We provide granular ledger history and real-time plan status, so you can value portfolios based on actual payment performance—not just court filings.</p>
+                <a href="#" class="hero-cta">Start Your Portfolio Audit</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-title">
+                <h2>The Edge for Debt Buyers</h2>
+            </div>
+            <p class="section-subtitle">Move beyond surface-level analysis with comprehensive data intelligence that transforms how you evaluate Chapter 13 portfolios.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3>Verified Yield</h3>
+                    <p>Move beyond "Proof of Claim" amounts. See the actual history of Trustee disbursements to the specific creditor you're buying.</p>
+                    <span class="verified-badge">VERIFIED DATA</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Case Feasibility Analysis</h3>
+                    <p>Identify "zombie" cases that are active but haven't paid in 90 days, allowing you to discount non-performing assets before you buy.</p>
+                    <span class="verified-badge">90-DAY TRACKING</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Seamless Integration</h3>
+                    <p>Export audit-ready ledger entries (dates, amounts, check numbers) directly into your bidding model.</p>
+                    <span class="verified-badge">INSTANT EXPORT</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">$5.3M</div>
+                <div class="stat-label">Average Portfolio Value Analyzed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98.7%</div>
+                <div class="stat-label">Data Accuracy Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4hrs</div>
+                <div class="stat-label">Average Audit Turnaround</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Portfolios Audited</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Ready to Make Informed Bids?</h2>
+            <p>Join leading debt buyers who leverage real data for competitive advantage.</p>
+            <a href="#" class="cta-button-large">Start Your Portfolio Audit</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+                <a href="#">Documentation</a>
+            </div>
+            <div class="copyright">
+                © 2026 Portfolio Audit. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
